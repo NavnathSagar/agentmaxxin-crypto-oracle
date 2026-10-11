@@ -60,23 +60,23 @@ export const tools: Tool[] = [
     },
     run: async ({ sides = 6 }) => ({ rolled: Math.floor(Math.random() * sides) + 1, sides }),
   },
-  {
-  name: "get_crypto_price",
-  description: "Get the current price of a cryptocurrency in USD.",
-  parameters: {
-    type: "object",
-    properties: {
-      coin_id: {
-        type: "string",
-        description: "The CoinGecko ID of the coin (e.g., bitcoin, ethereum, solana)",
+ {
+    name: "get_crypto_price",
+    description: "Get the current price of a cryptocurrency in USD.",
+    parameters: {
+      type: "object",
+      properties: {
+        coin_id: {
+          type: "string",
+          description: "The CoinGecko ID of the coin (e.g., bitcoin, ethereum, solana)",
+        },
       },
+      required: ["coin_id"], // <-- Moved inside the parameters object
     },
-  },
-  required: ["coin_id"],
-  run: async ({ coin_id }) => {
-    // Uses the free Keyless Public API for quick prototyping without auth headers
-    const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coin_id}&vs_currencies=usd`);
-    return res.json();
-  },
-}
+    run: async ({ coin_id }: { coin_id: string }) => {
+      // Uses the free Keyless Public API for quick prototyping without auth headers
+      const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coin_id}&vs_currencies=usd`);
+      return res.json();
+    },
+  }
 ];
