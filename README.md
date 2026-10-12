@@ -1,3 +1,9 @@
+# Crypto Price Oracle Agent
+
+**Live Deployment:** [https://agentmaxxin-crypto-oracle.vercel.app](https://agentmaxxin-crypto-oracle.vercel.app)
+
+## Description
+A crypto price oracle AI agent built with Next.js and Google Gemini. It uses a custom tool integrated with CoinGecko's public API to autonomously fetch, format, and report real-time cryptocurrency prices in USD upon user request.
 # agentmaxxin
 
 A minimal Next.js template for building AI agents that call tools and pay for services with their own crypto wallet. The agent is powered by Google Gemini.
