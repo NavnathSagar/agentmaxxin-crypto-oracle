@@ -58,8 +58,8 @@ CryptoOracle v2 features a live **Model Switcher** in the top telemetry bar alon
 ---
 
 ## 🎥 Demo Video & Weekly Progression Links
-* **Week 1 (cryptooracle.v1):** [Insert Your Week 1 Demo Video Link Here]
-* **Week 2 (cryptooracle.v2):** [Insert Your Week 2 Demo Video Link Here]
+* **Week 1 (cryptooracle.v1):** [https://lnkd.in/p/dhZQmjAS]
+* **Week 2 (cryptooracle.v2):** [https://lnkd.in/p/dHXKi_Jc]
 * **Week 3 (cryptooracle.v3):** *Coming Soon*
 
 ---
@@ -72,8 +72,9 @@ CryptoOracle v2 features a live **Model Switcher** in the top telemetry bar alon
 ---
 
 ## 🌐 Social Media Links
-* **Dedicated Product X (Twitter):** [https://x.com/YourProductHandle](https://x.com/YourProductHandle)
+* **Dedicated Product X (Twitter):** [https://x.com/YourProductHandle](https://x.com/SagarNavna58205)
 * **GitHub Repository:** [https://github.com/NavnathSagar/agentmaxxin-crypto-oracle](https://github.com/NavnathSagar/agentmaxxin-crypto-oracle)
+* **Vercel Deployment:** [https://agentmaxxin-crypto-oracle.vercel.app](https://agentmaxxin-crypto-oracle.vercel.app)
 # agentmaxxin
 
 A minimal Next.js template for building AI agents that call tools and pay for services with their own crypto wallet. The agent is powered by Google Gemini.
