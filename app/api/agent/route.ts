@@ -10,17 +10,26 @@ export async function GET() {
   });
 }
 
-// POST /api/agent { messages } -> the agent's answer + the tools it used
+// POST /api/agent { messages, model } -> the agent's answer + the tools it used
 export async function POST(req: Request) {
   if (!process.env.GEMINI_API_KEY) {
-    return Response.json({ error: "Add GEMINI_API_KEY to your .env file, then restart `npm run dev`." }, { status: 500 });
+    return Response.json(
+      { error: "Add GEMINI_API_KEY to your .env file, then restart `npm run dev`." },
+      { status: 500 }
+    );
   }
 
-  const { messages } = await req.json();
+  const { messages, model } = await req.json();
   try {
-    const result = await runAgent(messages, { baseUrl: new URL(req.url).origin });
+    const result = await runAgent(messages, {
+      baseUrl: new URL(req.url).origin,
+      model,
+    });
     return Response.json(result);
   } catch (err) {
-    return Response.json({ error: err instanceof Error ? err.message : String(err) }, { status: 500 });
+    return Response.json(
+      { error: err instanceof Error ? err.message : String(err) },
+      { status: 500 }
+    );
   }
 }

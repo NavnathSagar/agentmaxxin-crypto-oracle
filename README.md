@@ -1,9 +1,79 @@
-# Crypto Price Oracle Agent
+<div align="center">
+  <img src="./public/risein-logo.svg" alt="CryptoOracle v2 Logo" width="120" />
+  <h1>🔮 CryptoOracle v2 (Agentmaxxin Crypto Oracle)</h1>
+  <p><strong>Autonomous On-Chain Intelligence, DEX Liquidity & Pre-Trade Workflow Agent</strong></p>
+</div>
 
-**Live Deployment:** [https://agentmaxxin-crypto-oracle.vercel.app](https://agentmaxxin-crypto-oracle.vercel.app)
+---
 
-## Description
-A crypto price oracle AI agent built with Next.js and Google Gemini. It uses a custom tool integrated with CoinGecko's public API to autonomously fetch, format, and report real-time cryptocurrency prices in USD upon user request.
+## 📖 Project Description
+**CryptoOracle v2** is an autonomous Web3 & DeFi intelligence agent built on Base Sepolia that unifies real-time cryptocurrency telemetry, decentralized exchange (DEX) pool liquidity, smart contract security audits, DeFi protocol TVL, EVM gas metrics, and x402 autonomous micropayments into deterministic workflows. In **Week 2 (v2.0)**, the project evolved from basic single-tool queries into a multi-tool orchestration terminal with a custom Cyber-Oracle UI/UX, dynamic model switching, and a 3-step Pre-Trade Readiness Pipeline.
+
+---
+
+## 🎯 What Problem is Our AI Agent Solving?
+DeFi traders and Web3 users suffer from severe workflow fragmentation—manually jumping between CoinGecko for prices, DexScreener for AMM pool depth, GoPlus for honeypot checks, DeFiLlama for protocol TVL, and block explorers for gas fees before executing a single transaction. **CryptoOracle v2** eliminates this friction by chaining 10 modular tools and 5 live Web3 APIs behind a single conversational terminal that computes an actionable **Oracle Readiness Score (0–100)** in seconds.
+
+---
+
+## 🛠️ Tech Stack (with Version Information)
+* **Frontend Framework:** Next.js `v15.2.0`, React `v19.0.0`
+* **Language & Runtime:** TypeScript `v5.7.2`, Node.js `v20.18.0`
+* **Styling & Custom UI/UX:** TailwindCSS `v4.0.0`, Shadcn UI, Lucide React `v0.475.0` (Custom Cyber-Oracle Obsidian & Neon Cyan Theme)
+* **AI SDK & Agent Runtime:** Google Gen AI SDK (`@google/genai` `v0.1.1`) with multi-step function calling & autonomous fallback engine
+* **Blockchain & Wallet Settlement:** Base Sepolia Testnet, x402 Payment Protocol (`payAndFetch`), Ethereum JSON-RPC `v2.0`
+* **External Web3 Data APIs:** CoinGecko API `v3`, DexScreener API `v1`, GoPlus Security API `v1`, DeFiLlama API `v1`
+
+---
+
+## 🧰 List of All Tools Supported by the Agent (10 Active Modules)
+1. **`run_pre_trade_oracle_workflow`** *(Week 2 Core Multi-Step Workflow)* – Autonomously chains CoinGecko market metrics $\rightarrow$ DexScreener liquidity depth $\rightarrow$ Ethereum RPC gas oracle in parallel to compute a unified **Trade Execution Readiness Score (`0-100`)**.
+2. **`get_token_metrics`** – Fetches live USD spot price, 24h percentage change, market cap, 24h volume, and All-Time High (ATH) via CoinGecko `v3`.
+3. **`scan_dex_liquidity`** – Queries DexScreener for active AMM liquidity pools, Fully Diluted Valuation (FDV), chain ID, and 24h buy/sell pressure.
+4. **`audit_token_security`** – Audits ERC-20 smart contracts on Ethereum (`chainId: 1`) and Base (`chainId: 8453`) via GoPlus Security API for honeypot traps, mintability, open-source verification, and buy/sell tax anomalies.
+5. **`get_defi_protocol_tvl`** – Queries DeFiLlama for real-time Total Value Locked (TVL) and multi-chain asset breakdown across DeFi protocols (e.g., Aave, Uniswap, Lido).
+6. **`get_evm_gas_oracle`** – Queries live Ethereum JSON-RPC nodes to compute Standard, Fast, and Instant gas tiers in Gwei with congestion recommendations.
+7. **`get_crypto_price`** – Lightweight spot price lookup in USD for rapid token checks.
+8. **`get_my_wallet`** – Reads the agent's own self-custodial Base Sepolia wallet address and live testnet ETH balance.
+9. **`get_weather`** – Paid API endpoint demonstrating autonomous **x402 micropayment signing** (`0.01 USDC`) via the agent's wallet.
+10. **`roll_dice`** – Deterministic utility tool for randomized numeric generation.
+
+---
+
+## 🧠 Supported AI Models (Multi-Model Switching Enabled)
+CryptoOracle v2 features a live **Model Switcher** in the top telemetry bar alongside an automatic multi-model failover queue:
+* **Google Gemini 3.0 Flash:** `gemini-3.0-flash` (`v3.0` - Primary High-Speed Tool Calling)
+* **Google Gemini Flash Latest:** `gemini-flash-latest` (Auto-alias)
+* **Google Gemini 3.0 Pro:** `gemini-3.0-pro` (`v3.0` - Complex Reasoning)
+* **Google Gemini 2.0 Flash:** `gemini-2.0-flash` (`v2.0` - Fallback Engine)
+
+---
+
+## ✨ Key Features
+* **3-Step Autonomous Pre-Trade Workflow:** Simultaneously verifies market momentum, DEX pool depth, and network gas fees before issuing a `STRONG_EXECUTE` or `PROCEED_WITH_SLIPPAGE_GUARD` verdict.
+* **Custom Cyber-Oracle Terminal UI:** Completely redesigned 2-column command center with live KPI badges, 1-click workflow preset cards, and collapsible JSON telemetry inspectors.
+* **x402 Autonomous Wallet Integration:** Built-in Base Sepolia signer wallet capable of unlocking HTTP 402 payment-gated APIs automatically.
+* **Fail-Safe Oracle Execution Engine:** Deterministic tool fallback ensures uninterrupted on-chain telemetry even during LLM provider rate-limit spikes.
+
+---
+
+## 🎥 Demo Video & Weekly Progression Links
+* **Week 1 (cryptooracle.v1):** [Insert Your Week 1 Demo Video Link Here]
+* **Week 2 (cryptooracle.v2):** [Insert Your Week 2 Demo Video Link Here]
+* **Week 3 (cryptooracle.v3):** *Coming Soon*
+
+---
+
+## 🚀 Future Scope (Week 3 Roadmap)
+* **x402 Premium Oracle Monetization:** Gate institutional whale-wallet tracking and MEV-resistant swap routing behind real-time x402 USDC micropayments on Base.
+* **Zero-Knowledge (ZK) Oracle Proofs (zkTLS):** Integrate cryptographic attestations to verify that off-chain API responses from CoinGecko and GoPlus were not tampered with prior to execution.
+* **Intent-Based On-Chain Swap Execution:** Connect the Oracle Readiness Score directly to a Base DEX router to autonomously execute token swaps when liquidity and gas conditions pass verification.
+
+---
+
+## 🌐 Social Media Links
+* **Dedicated Product X (Twitter):** [https://x.com/YourProductHandle](https://x.com/YourProductHandle)
+* **GitHub Repository:** [https://github.com/NavnathSagar/agentmaxxin-crypto-oracle](https://github.com/NavnathSagar/agentmaxxin-crypto-oracle)
 # agentmaxxin
 
 A minimal Next.js template for building AI agents that call tools and pay for services with their own crypto wallet. The agent is powered by Google Gemini.

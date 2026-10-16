@@ -38,45 +38,53 @@
 }
 
 :root {
-    /* Agentmaxxing palette */
-    --background: #0A0A0A;
-    --foreground: #F2F1EC;
-    --card: #111110;
-    --card-foreground: #F2F1EC;
-    --popover: #111110;
-    --popover-foreground: #F2F1EC;
-    --primary: #C8E850;
-    --primary-foreground: #0A0A0A;
-    --secondary: #2A2A28;
-    --secondary-foreground: #F2F1EC;
-    --muted: #1A1A19;
-    --muted-foreground: #9A9A93;
-    --accent: #2A2A28;
-    --accent-foreground: #F2F1EC;
-    --destructive: #FF6B5A;
-    --border: rgba(242, 241, 236, 0.13);
-    --input: rgba(242, 241, 236, 0.24);
-    --ring: #C8E850;
-    --blue: #2030D8;
-    --blue-soft: #8C96FF;
-    --radius: 0rem;
+    /* CryptoOracle v2 — Cyber Emerald & Obsidian Palette */
+    --background: #050811;
+    --foreground: #E2F1FF;
+    --card: #0B1221;
+    --card-foreground: #E2F1FF;
+    --popover: #0B1221;
+    --popover-foreground: #E2F1FF;
+    --primary: #10B981;
+    --primary-foreground: #04130E;
+    --secondary: #131F36;
+    --secondary-foreground: #E2F1FF;
+    --muted: #0F172A;
+    --muted-foreground: #7E93B4;
+    --accent: #162642;
+    --accent-foreground: #34D399;
+    --destructive: #F43F5E;
+    --border: rgba(16, 185, 129, 0.2);
+    --input: rgba(56, 189, 248, 0.25);
+    --ring: #10B981;
+    --blue: #0284C7;
+    --blue-soft: #38BDF8;
+    --radius: 0.5rem;
 }
-
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    }
+  }
   body {
     @apply bg-background text-foreground;
-    }
+  }
   html {
     @apply font-sans;
-    }
+  }
 }
-/* Faint 6 column grid behind the page, like agentmaxxin.xyz */
+
+/* Cyber-Oracle subtle matrix grid + radial glow */
 body {
-  background-image: linear-gradient(to right, rgba(242, 241, 236, 0.045) 1px, transparent 1px);
-  background-size: calc(100% / 6) 100%;
+  background-image: 
+    radial-gradient(circle at 15% 10%, rgba(16, 185, 129, 0.10), transparent 35%),
+    radial-gradient(circle at 85% 80%, rgba(56, 189, 248, 0.08), transparent 35%),
+    linear-gradient(to right, rgba(16, 185, 129, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 185, 129, 0.04) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
 }
-::selection { background: var(--primary); color: var(--primary-foreground); }
+
+::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
