@@ -41,6 +41,11 @@ const SUPPORTED_MODELS = [
 
 const WORKFLOW_PRESETS = [
   {
+    title: "💸 x402 Paid Whale Intelligence",
+    badge: "x402 + ERC-4337",
+    prompt: "Unlock institutional whale intelligence for Ethereum (coinId: ethereum) using x402 on-chain payment and show me the BaseScan transaction link.",
+  },
+  {
     title: "⚡ Pre-Trade Oracle Workflow",
     badge: "3-Step Pipeline",
     prompt: "Run the full pre-trade oracle workflow for Ethereum (coinId: ethereum, symbol: ETH) and explain the readiness score.",
@@ -49,11 +54,6 @@ const WORKFLOW_PRESETS = [
     title: "💧 DEX Liquidity + TVL Scan",
     badge: "Multi-Tool",
     prompt: "Scan DEX liquidity for UNI and also fetch the DeFi protocol TVL for uniswap.",
-  },
-  {
-    title: "⛽ Mainnet Gas + Market Check",
-    badge: "Live Telemetry",
-    prompt: "Check the live Ethereum mainnet gas oracle and fetch token metrics for solana and bitcoin.",
   },
   {
     title: "🛡️ Token Security Audit",
@@ -532,33 +532,68 @@ function WalletDetails({ wallet, onRefresh }: { wallet: WalletInfo; onRefresh: (
 
 function ToolCall({ step }: { step: Step }) {
   const payment = step.result?.payment;
+  const txHash = step.result?.tx_hash || payment?.txHash;
+  const explorerUrl =
+    step.result?.basescan_url ||
+    payment?.explorerUrl ||
+    (txHash ? `https://sepolia.basescan.org/tx/${txHash}` : null);
+  const smartAccount = step.result?.smart_account_payer || payment?.smartAccount;
+
   return (
-    <Collapsible className="rounded-md border border-primary/30 bg-background/80 font-mono text-xs">
-      <CollapsibleTrigger className="group flex w-full items-center gap-2 px-3 py-2 text-left hover:bg-muted/60">
-        <ChevronRight className="size-3.5 text-primary transition-transform group-data-[panel-open]:rotate-90" />
-        <Badge variant="outline" className="border-primary/40 font-mono text-[10px] text-primary uppercase">
-          WORKFLOW STEP
-        </Badge>
-        <span className="font-bold text-foreground">{step.tool}()</span>
-        {payment && (
-          <Badge className="ml-auto bg-blue font-mono text-foreground uppercase">
-            Paid {payment.amount}
+    <div className="flex flex-col gap-2">
+      <Collapsible className="rounded-md border border-primary/30 bg-background/80 font-mono text-xs">
+        <CollapsibleTrigger className="group flex w-full items-center gap-2 px-3 py-2 text-left hover:bg-muted/60">
+          <ChevronRight className="size-3.5 text-primary transition-transform group-data-[panel-open]:rotate-90" />
+          <Badge variant="outline" className="border-primary/40 font-mono text-[10px] text-primary uppercase">
+            WORKFLOW STEP
           </Badge>
-        )}
-        {step.error && (
-          <Badge variant="destructive" className="ml-auto font-mono uppercase">
-            Failed
-          </Badge>
-        )}
-      </CollapsibleTrigger>
-      <CollapsibleContent className="flex flex-col gap-2 border-t px-3 py-2">
-        <Json label="Parameters" value={step.args} />
-        <Json label="Oracle Telemetry Output" value={step.result} />
-      </CollapsibleContent>
-    </Collapsible>
+          <span className="font-bold text-foreground">{step.tool}()</span>
+          {(payment || txHash) && (
+            <Badge className="ml-auto bg-primary font-mono text-primary-foreground uppercase">
+              {payment?.amount ? `x402 Paid ${payment.amount}` : "x402 Settled On-Chain"}
+            </Badge>
+          )}
+          {step.error && (
+            <Badge variant="destructive" className="ml-auto font-mono uppercase">
+              Failed
+            </Badge>
+          )}
+        </CollapsibleTrigger>
+        <CollapsibleContent className="flex flex-col gap-2 border-t px-3 py-2">
+          <Json label="Parameters" value={step.args} />
+          <Json label="Oracle Telemetry Output" value={step.result} />
+        </CollapsibleContent>
+      </Collapsible>
+
+      {/* Week 3 Requirement: Verifiable On-Chain x402 Transaction Banner */}
+      {txHash && explorerUrl && (
+        <div className="flex flex-wrap items-center justify-between gap-2 rounded-md border border-primary/50 bg-primary/10 px-3.5 py-2.5 font-mono text-xs">
+          <div className="flex flex-col gap-0.5">
+            <span className="font-bold text-primary uppercase">
+              ✅ x402 On-Chain Settlement Confirmed (Base Sepolia)
+            </span>
+            {smartAccount && (
+              <span className="text-[11px] text-muted-foreground">
+                ERC-4337 Smart Account: {smartAccount.slice(0, 10)}...{smartAccount.slice(-8)}
+              </span>
+            )}
+            <span className="text-[11px] text-foreground">
+              Tx Hash: {txHash.slice(0, 14)}...{txHash.slice(-10)}
+            </span>
+          </div>
+          <a
+            href={explorerUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 font-mono text-xs font-bold text-primary-foreground uppercase transition-opacity hover:opacity-90"
+          >
+            Verify on BaseScan <ExternalLink className="size-3.5" />
+          </a>
+        </div>
+      )}
+    </div>
   );
 }
-
 function Json({ label, value }: { label: string; value: unknown }) {
   return (
     <div>

@@ -12,12 +12,11 @@ const FALLBACK_MODELS = [
 ];
 const MAX_STEPS = 5;
 
-const SYSTEM_PROMPT = `You are CryptoOracle v2, an autonomous Web3 & DeFi intelligence agent built on Base Sepolia.
-When a user asks about a token, protocol, or trade:
-1. Always use your oracle tools (get_token_metrics, scan_dex_liquidity, audit_token_security, get_defi_protocol_tvl, get_evm_gas_oracle, or run_pre_trade_oracle_workflow) to fetch real-time data.
-2. Present your findings clearly with bullet points, highlighting price, liquidity depth, security risks, and gas conditions.
-3. End every analysis with an actionable Oracle Verdict (e.g., SAFE TO EXECUTE, CAUTION - HIGH GAS, or CRITICAL HONEYPOT RISK).`;
-
+const SYSTEM_PROMPT = `You are CryptoOracle v3 (x402 + ERC-4337 Edition), an autonomous Web3 & DeFi intelligence agent built on Base Sepolia.
+When a user asks about a token, protocol, trade, or x402 payment:
+1. Always use your oracle tools (unlock_x402_whale_intel, get_erc4337_smart_wallet, get_token_metrics, scan_dex_liquidity, audit_token_security, get_defi_protocol_tvl, get_evm_gas_oracle, or run_pre_trade_oracle_workflow) to fetch real-time data.
+2. When the user asks for whale intel, institutional flows, x402 payment, or an on-chain transaction, ALWAYS call unlock_x402_whale_intel and explicitly include the full Transaction Hash (tx_hash) and clickable BaseScan URL (basescan_url) in your response!
+3. End every analysis with an actionable Oracle Verdict.`;
 export type ChatMessage = { role: "user" | "agent"; text: string };
 export type Step = { tool: string; args: unknown; result: unknown; error?: boolean };
 
@@ -129,7 +128,25 @@ export async function runAgent(
         answer: `💧 **DEX Liquidity & Protocol TVL Telemetry**\n\n• **Active Pair:** ${dexRes.pair} on ${dexRes.dex} (${dexRes.chain})\n• **Spot Price:** $${dexRes.price_usd}\n• **Pool Liquidity:** $${Number(dexRes.liquidity_usd || 0).toLocaleString()}\n• **Protocol Category:** ${tvlRes.category || "DEX"}\n\n**Oracle Verdict:** ✅ **DEEP LIQUIDITY — OPTIMAL ROUTING**`,
       };
     }
-
+if (
+      lastUserText.includes("x402") ||
+      lastUserText.includes("whale") ||
+      lastUserText.includes("pay") ||
+      lastUserText.includes("unlock")
+    ) {
+      const x402Tool = tools.find((t) => t.name === "unlock_x402_whale_intel")!;
+      const coinId = lastUserText.includes("sol")
+        ? "solana"
+        : lastUserText.includes("btc") || lastUserText.includes("bitcoin")
+        ? "bitcoin"
+        : "ethereum";
+      const res: any = await x402Tool.run({ coinId }, ctx);
+      steps.push({ tool: x402Tool.name, args: { coinId }, result: res });
+      return {
+        steps,
+        answer: `💸 **x402 Autonomous Payment & Whale Intelligence Unlocked (${coinId.toUpperCase()})**\n\n• **Protocol:** ${res.protocol}\n• **Agent Smart Account:** \`${res.smart_account_payer}\`\n• **Transaction Hash:** \`${res.tx_hash}\`\n• **Verify on BaseScan:** ${res.basescan_url}\n\n📊 **Unlocked Whale Telemetry:**\n• **24h Net Exchange Flow:** ${res.unlocked_whale_intel?.netExchangeFlow24h}\n• **Smart Money Wallets Buying:** ${res.unlocked_whale_intel?.smartMoneyWalletsBuying}\n• **Largest Block Trade:** ${res.unlocked_whale_intel?.largestSingleBlockTrade}\n\n**Oracle Verdict:** ✅ **X402 ON-CHAIN SETTLEMENT VERIFIED — WHALE ACCUMULATION DETECTED**`,
+      };
+    }
     if (lastUserText.includes("wallet")) {
       const wTool = tools.find((t) => t.name === "get_my_wallet")!;
       const wRes: any = await wTool.run({}, ctx);

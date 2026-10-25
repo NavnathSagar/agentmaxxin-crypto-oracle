@@ -6,7 +6,12 @@
  * and `parameters` to know WHAT to pass in.
  */
 import { getWalletAddress, getWalletBalance, payAndFetch } from "./wallet";
-
+import {
+  getAgentSmartAccount,
+  fetchWithX402AgentWallet,
+  publicClient,
+} from "../lib/agentSmartWallet";
+import { formatEther } from "viem";
 export type Tool = {
   name: string;
   description: string;
@@ -278,6 +283,68 @@ export const tools: Tool[] = [
         oracle_readiness_score: `${score}/100`,
         execution_verdict:
           score >= 75 ? "STRONG_EXECUTE" : score >= 50 ? "PROCEED_WITH_SLIPPAGE_GUARD" : "HIGH_RISK_AVOID",
+      };
+    },
+  },
+  // ─── 11. Week 3 Core Feature: Autonomous x402 Paid Whale Intelligence & On-Chain Settlement ───
+  {
+    name: "unlock_x402_whale_intel",
+    description:
+      "Autonomously pays an HTTP 402 (x402 protocol) challenge using the agent's ERC-4337 Smart Wallet on Base Sepolia to unlock institutional Whale Orderbook & Smart-Money Flows, returning the live BaseScan transaction hash and explorer link.",
+    parameters: {
+      type: "object",
+      properties: {
+        coinId: {
+          type: "string",
+          description: "CoinGecko ID of the asset to unlock whale intelligence for (e.g., 'ethereum', 'bitcoin', 'solana')",
+        },
+      },
+      required: ["coinId"],
+    },
+    run: async ({ coinId = "ethereum" }: { coinId: string }, { baseUrl }) => {
+      // Fetch spot price first for the on-chain attestation payload
+      let priceUsd = 2500;
+      try {
+        const cg = await fetch(
+          `https://api.coingecko.com/api/v3/simple/price?ids=${encodeURIComponent(coinId.toLowerCase())}&vs_currencies=usd`
+        ).then((r) => r.json());
+        priceUsd = cg?.[coinId.toLowerCase()]?.usd ?? 2500;
+      } catch {}
+
+      const x402Result = await fetchWithX402AgentWallet(
+        baseUrl,
+        coinId.toLowerCase(),
+        priceUsd
+      );
+
+      return {
+        protocol: "x402 v2 + ERC-4337 Account Abstraction",
+        network: "Base Sepolia (Chain ID: 84532)",
+        smart_account_payer: x402Result.onChainReceipt?.smartAccountAddress,
+        tx_hash: x402Result.onChainReceipt?.txHash,
+        basescan_url: x402Result.onChainReceipt?.explorerUrl,
+        x402_protocol_trace: x402Result.protocolLogs,
+        unlocked_whale_intel: x402Result.unlockedData?.whaleMetrics,
+      };
+    },
+  },
+
+  // ─── 12. Week 3 ERC-4337 Smart Account Telemetry ───
+  {
+    name: "get_erc4337_smart_wallet",
+    description:
+      "Gets the agent's ERC-4337 Safe Smart Account address, EOA signer address, and gas-sponsored status on Base Sepolia.",
+    parameters: { type: "object", properties: {} },
+    run: async () => {
+      const { smartAccountAddress, ownerAddress } = await getAgentSmartAccount();
+      const bal = await publicClient.getBalance({ address: smartAccountAddress });
+      return {
+        account_type: "ERC-4337 Safe Smart Account v1.4.1 (Pimlico Paymaster Sponsored)",
+        smart_account_address: smartAccountAddress,
+        eoa_signer_address: ownerAddress,
+        balance_eth: `${formatEther(bal)} ETH`,
+        network: "Base Sepolia (Chain ID: 84532)",
+        explorer_url: `https://sepolia.basescan.org/address/${smartAccountAddress}`,
       };
     },
   },
