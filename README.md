@@ -85,11 +85,11 @@ CryptoOracle v3 features a live **Model Switcher** in the top telemetry bar alon
 - **Live Deployed Application:** [https://agentmaxxin-crypto-oracle.vercel.app](https://agentmaxxin-crypto-oracle.vercel.app)
 - **Sample Verified On-Chain `x402` Transaction (Base Sepolia):** [https://sepolia.basescan.org/tx/0x07f01ccfe14890fa15c029bb2a5f011653aa85c131d8de28ba06f1c04](https://sepolia.basescan.org/tx/0x07f01ccfe14890fa15c029bb2a5f011653aa85c131d8de28ba06f1c04)
 
-Week 1 (cryptooracle.v1): [Insert-Your-Week-1-Demo-Video-Link]
+Week 1 (cryptooracle.v1): [https://lnkd.in/p/dhZQmjAS]
 
-Week 2 (cryptooracle.v2): [Insert-Your-Week-2-Demo-Video-Link]
+Week 2 (cryptooracle.v2): [https://lnkd.in/p/dHXKi_Jc]
 
-Week 3 (cryptooracle.v3): [Insert-Your-Week-3-Demo-Video-Link]
+Week 3 (cryptooracle.v3): [https://lnkd.in/p/dEXHMMJ7]
 
 ---
 
