@@ -100,7 +100,7 @@ export async function executeX402AndAttestOnChain(params: {
 }) {
   const { smartAccountAddress, smartAccountClient, owner } = await getAgentSmartAccount();
   const treasury = (process.env.X402_TREASURY_ADDRESS ||
-    "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb0") as Hex;
+    "0x742d35cc6634c0532925a3b844bc9e7595f0beb0") as Hex;
 
   const attestationPayload = JSON.stringify({
     protocol: "x402-v2-onchain",

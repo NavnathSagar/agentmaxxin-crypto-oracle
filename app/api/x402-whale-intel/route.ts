@@ -13,7 +13,7 @@ export async function GET(req: Request) {
 
   const payToAddress =
     process.env.X402_TREASURY_ADDRESS ||
-    "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb0";
+    "0x742d35cc6634c0532925a3b844bc9e7595f0beb0";
 
   // STEP 2 OF X402: Return HTTP 402 Payment Required if no payment header is provided
   if (!paymentHeader) {
