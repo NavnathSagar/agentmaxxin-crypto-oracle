@@ -145,7 +145,7 @@ export default function Home() {
                 CryptoOracle
               </span>
               <Badge className="bg-primary font-mono text-[10px] text-primary-foreground uppercase">
-                v3\.0 x402 + ERC-4337
+                v3.0 x402 + ERC-4337
               </Badge>
             </div>
             <p className="font-mono text-xs text-muted-foreground">
@@ -184,7 +184,7 @@ export default function Home() {
       <section className="grid gap-4 rounded-lg border bg-gradient-to-r from-card via-card to-primary/5 p-6 lg:grid-cols-[1fr_auto] lg:items-center">
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2 font-mono text-xs text-primary uppercase">
-            <Sparkles className="size-3.5" /> Week 2 Build &amp; Ship // Multi-Tool Orchestration
+            <Sparkles className="size-3.5" /> Week 3 Build &amp; Ship // Autonomous x402 Payments
           </div>
           <h1 className="text-3xl font-bold tracking-tight uppercase md:text-5xl">
             On-Chain <span className="text-primary">Oracle &amp; Workflow</span> Terminal
@@ -335,7 +335,7 @@ export default function Home() {
                 )}
               >
                 <span className="pl-3 font-mono text-xs whitespace-nowrap text-primary">
-                  oracle@v3:~\$
+                  oracle@v3:~$
                 </span>
                 <Input
                   value={input}
