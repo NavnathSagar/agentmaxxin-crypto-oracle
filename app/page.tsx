@@ -145,7 +145,7 @@ export default function Home() {
                 CryptoOracle
               </span>
               <Badge className="bg-primary font-mono text-[10px] text-primary-foreground uppercase">
-                v2.0 Workflow Engine
+                v3\.0 x402 + ERC-4337
               </Badge>
             </div>
             <p className="font-mono text-xs text-muted-foreground">
@@ -335,7 +335,7 @@ export default function Home() {
                 )}
               >
                 <span className="pl-3 font-mono text-xs whitespace-nowrap text-primary">
-                  oracle@v2:~$
+                  oracle@v3:~\$
                 </span>
                 <Input
                   value={input}
